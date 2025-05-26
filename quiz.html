@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Quiz</title>
+
+<head>
+  <style>
+    body {
+      background: #8abcee;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      min-height: 90vh;
+    }
+
+    #main {
+      background: rgb(255, 255, 255);
+      min-width: 400px;
+      border-radius: 5px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 5px;
+    }
+
+    ul li {
+      padding: 2px;
+    }
+
+    button {
+      background: #c88cf0;
+      color: white;
+      display: block;
+      width: 100%;
+      border: none;
+      padding: 10px;
+      margin-top: 15px;
+    }
+
+    #score {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+
+    button:hover {
+      background: #f89ef8;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="main">
+    <div id="hq">
+      <h2 id="question">question</h2>
+    </div>
+    <div id="bq">
+      <ul>
+        <li>
+          <input type="radio" id="a" name="ans" />
+          <label for="a" id="aAns">Answer A</label>
+        </li>
+        <li>
+          <input type="radio" id="b" name="ans" />
+          <label for="b" id="bAns">Answer B</label>
+        </li>
+        <li>
+          <input type="radio" id="c" name="ans" />
+          <label for="c" id="cAns">Answer C</label>
+        </li>
+        <li>
+          <input type="radio" id="d" name="ans" />
+          <label for="d" id="dAns">Answer D</label>
+        </li>
+      </ul>
+      <button onclick="submit()" id="submitBtn">Submit</button>
+      <button id="score" onclick="showScore()">Score</button>
+    </div>
+  </div>
+  <script>
+    const arr = [
+      {
+        q: "What is the full of ROM?",
+        a: "Read Only Memory",
+        b: "Random Access Memory",
+        c: "Central Processing Unit",
+        d: "Hard Disk Drive",
+        r: "a",
+      },
+      {
+        q: "What is the full of RAM?",
+        a: "Read Only Memory",
+        b: "Random Access Memory",
+        c: "Central Processing Unit",
+        d: "Hard Disk Drive",
+        r: "b",
+      },
+      {
+        q: "What is the full of CPU?",
+        a: "Read Only Memory",
+        b: "Random Access Memory",
+        c: "Central Processing Unit",
+        d: "Hard Disk Drive",
+        r: "c",
+      },
+      {
+        q: "What is the full of HDD?",
+        a: "Read Only Memory",
+        b: "Random Access Memory",
+        c: "Central Processing Unit",
+        d: "Hard Disk Drive",
+        r: "d",
+      },
+      {
+        q: "Which memory is Volatile?",
+        a: "Read Only Memory",
+        b: "Random Access Memory",
+        c: "Central Processing Unit",
+        d: "Hard Disk Drive",
+        r: "b",
+      },
+    ];
+    var i = 0;
+    var score = 0;
+    function loadQuestion() {
+      document.getElementById("question").innerHTML = arr[i].q;
+      document.getElementById("aAns").innerHTML = arr[i].a;
+      document.getElementById("bAns").innerHTML = arr[i].b;
+      document.getElementById("cAns").innerHTML = arr[i].c;
+      document.getElementById("dAns").innerHTML = arr[i].d;
+      document.getElementById("a").checked = false;
+      document.getElementById("b").checked = false;
+      document.getElementById("c").checked = false;
+      document.getElementById("d").checked = false;
+    }
+    function submit() {
+      // This is to restrict user going wiothout selecting a answer
+      var isSelected = false;
+      if (document.getElementById("a").checked) isSelected = true;
+      if (document.getElementById("b").checked) isSelected = true;
+      if (document.getElementById("c").checked) isSelected = true;
+      if (document.getElementById("d").checked) isSelected = true;
+      if (!isSelected) {
+        alert("Please Select One Answer");
+        return;
+      }
+      if (document.getElementById(arr[i].r).checked) {
+        score++;
+      }
+      // These all doing for moving to next Question i++;
+      i++;
+      if (i < arr.length) {
+        loadQuestion();
+      } else {
+        alert("Quiz Completed");
+        document.getElementById("submitBtn").style.visibility = "hidden";
+        document.getElementById("submitBtn").style.display = "none";
+      }
+    }
+    function showScore() {
+      alert(`Your score is ${score}`);
+    }
+    loadQuestion();
+  </script>
+</body>
+
+</html>

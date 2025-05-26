@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>clock</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        #clock {
+            border: 8px solid blue;
+            border-radius: 50%;
+            background: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <canvas id="clock" width="400px" height="400px"></canvas>
+    </div>
+    <script>
+        const clock = document.getElementById('clock');
+        const ctx = clock.getContext('2d');
+        const cx = clock.width / 2;
+        const cy = clock.height / 2;
+        const radius = clock.width / 2 - 10;
+        function drawHand(position, length, width) {
+            ctx.lineWidth = width;
+            ctx.lineCap = "round";
+            ctx.strokeStyle = "black";
+            ctx.beginPath();
+            ctx.moveTo(cx, cy);
+            ctx.lineTo(cx + Math.sin(position) * length, cy - Math.cos(position) * length);
+            ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(cx, cy);
+            ctx.lineTo(cx - Math.sin(position) * length / 3, cy + Math.cos(position) * length / 3);
+            ctx.stroke();
+        }
+        function drawSecHand(position, length, width) {
+            ctx.lineWidth = width;
+            ctx.lineCap = "round";
+            ctx.strokeStyle = "red";
+            ctx.beginPath();
+            ctx.moveTo(cx, cy);
+            ctx.lineTo(cx + Math.sin(position) * length, cy - Math.cos(position) * length);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(cx, cy);
+            ctx.lineTo(cx - Math.sin(position) * length / 3, cy + Math.cos(position) * length / 3);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.fillStyle = "white"
+            ctx.arc(cx + Math.sin(position) * length, cy - Math.cos(position) * length, 10, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.strokeStyle = "red";
+            ctx.arcWidth = width;
+            ctx.arc(cx + Math.sin(position) * length, cy - Math.cos(position) * length, 10, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.fillStyle = "red";
+            ctx.arc(cx, cy, 10, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        function drawMarking() {
+            for (var i = 0; i < 60; i++) {
+                const angle = (i / 60) * 2 * Math.PI;
+                const length = i % 5 === 0 ? radius * 0.85 : radius * 0.95;
+                ctx.lineWidth = i % 5 === 0 ? 8 : 6;
+                ctx.strokeStyle = "black";
+                ctx.lineCap = "round";
+                ctx.beginPath();
+                ctx.moveTo(cx + Math.cos(angle) * length, cy + Math.sin(angle) * length);
+                ctx.lineTo(cx + Math.cos(angle) * radius, cy + Math.sin(angle) * radius);
+                ctx.stroke();
+            }
+        } function drawClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minute = now.getMinutes();
+            const seconds = now.getSeconds();
+            ctx.clearRect(0, 0, clock.width, clock.height);
+            drawMarking();
+            const hourPos = (hours + minute / 60) * (Math.PI / 6);
+            drawHand(hourPos, radius * 0.7, 10);
+            const minPos = (minute + seconds / 60) * (Math.PI / 30);
+            drawHand(minPos, radius * 0.9, 6);
+            const secPos = seconds * (Math.PI / 30);
+            drawSecHand(secPos, radius * 0.79, 3);
+        }
+        setInterval(drawClock, 500)
+    </script>
+</body>
+
+</html>

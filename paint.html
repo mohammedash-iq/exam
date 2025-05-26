@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .main {
+            display: flex;
+        }
+
+        .toolbar {
+            background-color: rgb(88, 88, 88);
+            width: 10vw;
+        }
+
+        .toolbar * {
+            padding: 3px;
+            margin: 5px;
+            width: 8vw;
+            color: rgb(149, 164, 248);
+        }
+
+        .btn {
+            color: white;
+            background-color: blue;
+            border: none;
+        }
+
+        .sidebar {
+            color: rgb(101, 101, 238);
+            font-size: 3rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="toolbar">
+            <h2 class="sidebar">Draw</h2>
+            <label for="strokecolor">Stroke Color</label>
+            <input type="color" name="strokecolor" id="strokecolor" value="#000000" onchange="changeColor()" />
+            <label for="width">Stroke Size</label>
+            <input type="number" name="width" id="width" value="2" onchange="changeWidth()" />
+            <input type="button" value="Clear" onclick="clearCanvas()" class="btn" />
+        </div>
+        <div class="canvasarea">
+            <canvas id="drawArea" onmousedown="mouseDown(event)" onmouseup="mouseUp(event)"
+                onmousemove="mouseMove(event)"></canvas>
+        </div>
+    </div>
+    <script>
+        const canvas = document.getElementById("drawArea");
+        const ctx = canvas.getContext("2d");
+        const x = canvas.offsetLeft;
+        const y = canvas.offsetTop;
+        canvas.width = window.innerWidth - x;
+        canvas.height = window.innerHeight - y;
+        var draw = false, lineWidth = 2;
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.height, canvas.width);
+        }
+        function changeWidth() {
+            lineWidth = document.getElementById("width").value;
+        }
+        function changeColor() {
+            ctx.strokeStyle = document.getElementById("strokecolor").value;
+        }
+        function mouseDown(event) {
+            draw = true;
+        }
+        function mouseUp(event) {
+            draw = false;
+            ctx.beginPath();
+        }
+        function mouseMove(event) {
+            if (!draw) {
+                return;
+            }
+            ctx.lineWidth = lineWidth;
+            ctx.lineCap = "round";
+            ctx.lineTo(event.clientX - x, event.clientY);
+            ctx.stroke();
+        }
+    </script>
+</body>
+
+</html>
