@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>SolarSystem</title>
+</head>
+
+<body>
+    <div>
+        <canvas id="solarSystem" width="440px" height="400"></canvas>
+    </div>
+    <script>
+        const ss = document.getElementById("solarSystem");
+        const ctx = ss.getContext('2d');
+        var i = 0;
+        function showSS() {
+            ctx.clearRect(0, 0, 440, 400);
+            ctx.fillStyle = "darkblue";
+            ctx.fillRect(0, 0, 440, 400);
+            ctx.save();
+            ctx.translate(220, 200);
+            ctx.fillStyle = "yellow";
+            ctx.beginPath();
+            ctx.arc(0, 0, 20, 0, Math.PI * 2, true);
+            ctx.fill();
+            ctx.strokeStyle = "black";
+            ctx.beginPath();
+            ctx.lineWidth = 5;
+            ctx.arc(0, 0, 150, 0, Math.PI * 2, true);
+            ctx.stroke();
+            var angle = (Math.PI * 2) / 60;
+            ctx.rotate(angle * (i % 60));
+            i = i + 0.1;
+            ctx.translate(150, 0);
+            ctx.fillStyle = "green";
+            ctx.beginPath();
+            ctx.arc(0, 0, 10, 0, Math.PI * 2, true);
+            ctx.fill();
+            ctx.rotate(12 * angle * (i % 60));
+            ctx.translate(35, 0);
+            ctx.fillStyle = "white";
+            ctx.beginPath();
+            ctx.arc(0, 0, 5, 0, Math.PI * 2, true);
+            ctx.fill();
+            ctx.restore();
+        }
+        setInterval(showSS, 100);
+    </script>
+</body>
+
+</html>

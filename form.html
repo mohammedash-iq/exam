@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Registration Form</title>
+    <style>
+      h1 {
+        text-align: center;
+        color: green;
+      }
+      form {
+        width: 500px;
+        background: lightgray;
+        border-radius: 10px;
+        box-shadow: 0px 0px 15px 0px black;
+        padding: 10px;
+        margin: auto;
+        font-size: 16px;
+        font-size: bold;
+      }
+      .txt {
+        display: block;
+        width: 95%;
+        border: none;
+        outline: none;
+        height: 25px;
+        padding: 3px;
+        margin: 5px;
+        border-radius: 4px;
+        background: white;
+        font-size: 14px;
+      }
+      .range {
+        display: block;
+        width: 95%;
+        padding: 5px;
+        margin: 5px;
+        height: 5px;
+        border-radius: 5px;
+        appearance: none;
+      }
+      .range::-webkit-slider-thumb {
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        background-color: green;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+      .btn {
+        width: 20%;
+        background-color: green;
+        color: white;
+        border: none;
+        padding: 8px;
+        margin: 10px;
+        border-radius: 4px;
+      }
+      .btn:hover {
+        background-color: chartreuse;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Registration Form</h1>
+    <form>
+      <label for="name">Name:</label>
+      <input
+        type="text"
+        name="name"
+        id="name"
+        class="txt"
+        placeholder="Enter Your Name"
+        required
+      />
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        name="password"
+        id="password"
+        class="txt"
+        placeholder="Enter 
+Your Password"
+        required
+      />
+      <label for="confirmpassword">Confirm Password:</label>
+      <input
+        type="password"
+        name="confirmpassword"
+        id="confirmpassword"
+        class="txt"
+        placeholder="Confirm Password"
+        required
+      />
+      <label for="contact">Contact:</label>
+      <input
+        type="tel"
+        name="contact"
+        id="contact"
+        class="txt"
+        placeholder="Enter a number"
+        required
+        pattern="[0-9]{10}"
+        title="Please enter 10 digits"
+      />
+      <label for="skill">Skill Range:</label>
+      <input type="range" name="skill" id="skill" class="range" />
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        name="email"
+        id="email"
+        class="txt"
+        placeholder="Enter Your email"
+        pattern="[a-zA-Z0-9._]+@[a-zA-Z0-9._]+\.[a-zA-Z]{2,}$"
+        title="Please enter in this form 
+yourid@domain.prefix"
+      />
+      <label for="url">Profile URL:</label>
+      <input
+        type="url"
+        name="url"
+        id="url"
+        class="txt"
+        placeholder="Enter a URL"
+      />
+      <label for="file">Resume:</label>
+      <input type="file" name="file" id="file" class="txt" />
+      <center>
+        <input type="submit" value="Submit" class="btn" />
+        <input type="reset" value="Reset" class="btn" />
+      </center>
+    </form>
+  </body>
+</html>
